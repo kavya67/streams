@@ -5,15 +5,33 @@ import { Field, reduxForm } from "redux-form";
 // reduxForm is a function similar to connect function of react redux
 
 class StreamCreate extends Component {
-  renderInput({ input }) {
-    return <input {...input} />; //field returns a object
-  }
-  render() {
-    console.log(this.props);
+  renderInput({ input, label }) {
     return (
-      <form>
-        <Field name="title" component={this.renderInput} />
-        <Field name="description" component={this.renderInput} />
+      <div className="field">
+        <label>{label}</label>
+        <input {...input} />
+      </div>
+    ); //Field component returns a object(input)
+  }
+
+  onSubmit = (formValues) => {
+    console.log(formValues);
+  };
+  render() {
+    // console.log(this.props);
+    const { handleSubmit } = this.props;
+    return (
+      <form
+        className="ui form"
+        onSubmit={handleSubmit(this.onSubmit)}
+      >
+        <Field name="title" component={this.renderInput} label="Enter Title" />
+        <Field
+          name="description"
+          component={this.renderInput}
+          label="Enter Description"
+        />
+        <button className="ui primary button">Submit</button>
       </form>
     );
   }
