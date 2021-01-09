@@ -5,12 +5,21 @@ import { Field, reduxForm } from "redux-form";
 // reduxForm is a function similar to connect function of react redux
 
 class StreamCreate extends Component {
-  renderInput({ input, label, meta }) {
+  renderError({ error, touched }) {
+    return touched && error ? (
+      <div className="ui error message">
+        <div className="header">{error}</div>
+      </div>
+    ) : (
+      ""
+    );
+  }
+  renderInput= ({ input, label, meta }) => {
     return (
       <div className="field">
         <label>{label}</label>
         <input {...input} />
-        <div>{meta.error}</div>
+        <div>{this.renderError(meta)}</div>
       </div>
     ); //Field component returns a object(input)
   }
@@ -22,7 +31,7 @@ class StreamCreate extends Component {
     // console.log(this.props);
     const { handleSubmit } = this.props;
     return (
-      <form className="ui form" onSubmit={handleSubmit(this.onSubmit)}>
+      <form className="ui form error" onSubmit={handleSubmit(this.onSubmit)}>
         <Field name="title" component={this.renderInput} label="Enter Title" />
         <Field
           name="description"
@@ -50,5 +59,5 @@ const validate = (formValues) => {
 };
 export default reduxForm({
   form: "StreamCreate",
-  validate //hooking up the validate function with redux form
+  validate, //hooking up the validate function with redux form
 })(StreamCreate);
