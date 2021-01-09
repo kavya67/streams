@@ -10,7 +10,7 @@ import {
 const streamReducers = (state = {}, action) => {
   switch (action.type) {
     case FETCH_STREAMS:
-      return { ...state, ..._.mapKeys(action.payload, "id") };
+      return { ...state, ..._.mapKeys(action.payload, "id") }; // _.mapkey converts array of objects to objects of objects
     case FETCH_STREAM:
       return { ...state, [action.payload.id]: action.payload };
     case CREATE_STREAM:
