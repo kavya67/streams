@@ -14,15 +14,16 @@ class StreamCreate extends Component {
       ""
     );
   }
-  renderInput= ({ input, label, meta }) => {
+  renderInput = ({ input, label, meta }) => {
+    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
-      <div className="field">
+      <div className={className}>
         <label>{label}</label>
         <input {...input} />
         <div>{this.renderError(meta)}</div>
       </div>
     ); //Field component returns a object(input)
-  }
+  };
 
   onSubmit = (formValues) => {
     console.log(formValues);
